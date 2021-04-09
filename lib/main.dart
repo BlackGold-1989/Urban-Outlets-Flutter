@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:urban_outlets/themes/color_theme.dart';
 
 import 'generated/l10n.dart';
 import 'screens/auth/login_screen.dart';
@@ -16,9 +15,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Urban Outlest',
       theme: ThemeData(
-          primarySwatch: primaryColor,
+          primarySwatch: Colors.purple,
           primaryTextTheme:
-          TextTheme(headline6: TextStyle(color: primaryColor))),
+              TextTheme(headline6: TextStyle(color: Colors.purple)),
+          brightness: Brightness.light),
       debugShowCheckedModeBanner: false,
       home: SplashScreen(
         homeWidget: LoginScreen(),

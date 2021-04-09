@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:custom_splash/custom_splash.dart';
-import '../../themes/color_theme.dart';
 
 class SplashScreen extends StatelessWidget {
   final Widget homeWidget;
@@ -8,23 +7,27 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            width: 150,
-            height: 150,
-            child: CustomSplash(
-              imagePath: 'assets/images/logo.png',
-              home: homeWidget,
-              duration: 3000,
-              type: CustomSplashType.StaticDuration,
-              backGroundColor: primaryColor,
-              logoSize: 70,
-            ),
-          )
-        ],
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Container(
+        width: double.infinity,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              width: 150,
+              height: 150,
+              child: CustomSplash(
+                imagePath: 'assets/images/logo.png',
+                home: homeWidget,
+                duration: 3000,
+                type: CustomSplashType.StaticDuration,
+                backGroundColor: Colors.white,
+                logoSize: 70,
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
