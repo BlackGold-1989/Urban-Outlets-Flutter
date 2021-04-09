@@ -1,0 +1,66 @@
+name: urban_outlets
+description: A new Flutter application.
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.2
+  custom_splash: ^0.0.2
+  flutter_svg: ^0.19.3
+  http: ^0.13.1
+  shared_preferences: ^2.0.3
+
+  intl: ^0.17.0
+  flutter_localizations:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  generate: true
+  uses-material-design: true
+
+  assets:
+    - assets/images/
+    - assets/icons/
+    - assets/fonts/
+    - assets/fonts/montserrat_thin.ttf
+    - assets/fonts/montserrat_light.ttf
+    - assets/fonts/montserrat_regular.ttf
+    - assets/fonts/montserrat_medium.ttf
+    - assets/fonts/montserrat_semiBold.ttf
+    - assets/fonts/montserrat_bold.ttf
+    - assets/fonts/montserrat_extraBold.ttf
+    - assets/fonts/montserrat_black.ttf
+
+  fonts:
+    - family: Montserrat
+      fonts:
+        - asset: assets/fonts/montserrat_thin.ttf
+          weight: 100
+        - asset: assets/fonts/montserrat_light.ttf
+          weight: 200
+        - asset: assets/fonts/montserrat_regular.ttf
+          weight: 300
+        - asset: assets/fonts/montserrat_medium.ttf
+          weight: 400
+        - asset: assets/fonts/montserrat_semiBold.ttf
+          weight: 500
+        - asset: assets/fonts/montserrat_bold.ttf
+          weight: 600
+        - asset: assets/fonts/montserrat_extraBold.ttf
+          weight: 700
+        - asset: assets/fonts/montserrat_black.ttf
+          weight: 800
+
+flutter_intl:
+  main_locale: en_US
+  enabled: true
