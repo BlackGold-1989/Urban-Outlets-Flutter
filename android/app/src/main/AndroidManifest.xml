@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.laodev.urban_outlets">
    <application
-        android:label="urban_outlets"
+        android:label="Urban Outlets"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
