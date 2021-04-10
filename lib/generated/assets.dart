@@ -16,6 +16,9 @@ class Assets {
   static const String iconsIcOrder = 'assets/icons/ic_order.svg';
   static const String iconsIcProfile = 'assets/icons/ic_profile.svg';
   static const String iconsIcVerify = 'assets/icons/ic_verify.svg';
+  static const String imagesBadgeHot = 'assets/images/badge_hot.png';
+  static const String imagesBadgeNew = 'assets/images/badge_new.png';
+  static const String imagesBadgeSale = 'assets/images/badge_sale.png';
   static const String imagesLogo = 'assets/images/logo.png';
   static const String imagesLogoBrands = 'assets/images/logo_brands.svg';
   static const String imagesLogoFarmers = 'assets/images/logo_farmers.svg';
