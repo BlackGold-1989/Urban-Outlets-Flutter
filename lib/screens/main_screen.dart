@@ -63,7 +63,7 @@ class _MainScreenState extends State<MainScreen> {
               child: Container(
                 height: 60.0,
                 margin: EdgeInsets.symmetric(horizontal: offsetBase, vertical: offsetBase),
-                padding: EdgeInsets.symmetric(horizontal: offsetBase),
+                padding: EdgeInsets.symmetric(horizontal: offsetXMd),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.all(Radius.circular(24.0)),
