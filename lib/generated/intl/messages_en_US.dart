@@ -21,6 +21,15 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
-
+    "category" : MessageLookupByLibrary.simpleMessage("Category"),
+    "favorite" : MessageLookupByLibrary.simpleMessage("Favorite"),
+    "login" : MessageLookupByLibrary.simpleMessage("Login"),
+    "not_code" : MessageLookupByLibrary.simpleMessage("You didn\'t receive any code yet?"),
+    "orders" : MessageLookupByLibrary.simpleMessage("Orders"),
+    "phone_number" : MessageLookupByLibrary.simpleMessage("Phone Number"),
+    "profile" : MessageLookupByLibrary.simpleMessage("Profile"),
+    "resend_cdoe" : MessageLookupByLibrary.simpleMessage("Resend Code"),
+    "verification_code" : MessageLookupByLibrary.simpleMessage("Verification Code"),
+    "verify_description" : MessageLookupByLibrary.simpleMessage("Urban Outlets sent a verification code\nto +91")
   };
 }

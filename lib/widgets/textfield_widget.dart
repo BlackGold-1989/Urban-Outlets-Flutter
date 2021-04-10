@@ -49,9 +49,9 @@ class UnderLineTextField extends TextFormField {
             decoration: InputDecoration(
               enabled: !isDisable,
               labelText: label,
-              labelStyle: semiBold.copyWith(fontSize: fontSize),
+              labelStyle: mediumText.copyWith(fontSize: fontSize),
               hintText: hint,
-              hintStyle: semiBold.copyWith(fontSize: fontSize),
+              hintStyle: mediumText.copyWith(fontSize: fontSize),
               focusedBorder: UnderlineInputBorder(
                   borderSide: BorderSide(color: primaryColor)),
               border: UnderlineInputBorder(

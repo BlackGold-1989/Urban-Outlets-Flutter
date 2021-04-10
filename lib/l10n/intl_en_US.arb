@@ -1,1 +1,12 @@
-{}
+{
+  "phone_number" : "Phone Number",
+  "login" : "Login",
+  "verification_code" : "Verification Code",
+  "verify_description" : "Urban Outlets sent a verification code\nto +91",
+  "not_code" : "You didn't receive any code yet?",
+  "resend_cdoe" : "Resend Code",
+  "category" : "Category",
+  "favorite" : "Favorite",
+  "orders" : "Orders",
+  "profile" : "Profile"
+}

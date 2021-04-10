@@ -35,5 +35,6 @@ class MainBarWidget extends AppBar {
           ),
         ],
       ) : titleWidget,
+      elevation: 1,
       actions: actions);
 }
