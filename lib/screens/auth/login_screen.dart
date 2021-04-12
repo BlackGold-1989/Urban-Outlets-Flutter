@@ -62,6 +62,7 @@ class _LoginScreenState extends State<LoginScreen> {
               Spacer(flex: 1,),
               UnderLineTextField(
                 controller: phoneController,
+                keyboardType: TextInputType.phone,
                 label: S.of(context).phone_number,
                 sufficIcon: InkWell(
                   onTap: () {

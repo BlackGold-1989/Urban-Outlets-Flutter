@@ -1,11 +1,12 @@
 import 'dart:async';
-import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:urban_outlets/models/category_model.dart';
 import 'package:urban_outlets/models/product_model.dart';
+import 'package:urban_outlets/screens/product/product_detail_screen.dart';
+import 'package:urban_outlets/services/navigator_service.dart';
 import 'package:urban_outlets/services/network_service.dart';
 import 'package:urban_outlets/themes/color_theme.dart';
 import 'package:urban_outlets/themes/text_theme.dart';
@@ -48,11 +49,10 @@ class _ProductListScreenState extends State<ProductListScreen> {
   }
 
   Widget getAvatarWidget(ProductModel model) {
-    var images = jsonDecode(model.galleryImages) as List;
-    if (images.isEmpty) {
-      return SvgPicture.asset('assets/images/logo.svg', width: 36.0, height: 36.0,);
+    if (model.galleryImages.isEmpty) {
+      return SvgPicture.asset('assets/images/logo.svg', width: 48.0, height: 48.0,);
     } else {
-      return Image.network(images.first, width: 36.0, height: 36.0,);
+      return Image.network(model.galleryImages.first.thumbnailUrl, width: 48.0, height: 48.0, fit: BoxFit.cover,);
     }
   }
 
@@ -78,67 +78,87 @@ class _ProductListScreenState extends State<ProductListScreen> {
       appBar: MainBarWidget(
         titleString: widget.model.name + ' (${widget.model.productCount})',
       ),
-      body: Container(
-        padding: EdgeInsets.symmetric(horizontal: offsetBase),
-        child: ListView.builder(
-          padding: EdgeInsets.symmetric(vertical: offsetBase),
-          itemCount: products.length,
-          itemBuilder: (context, index) {
-            return Card(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(offsetBase)),
-              ),
-              elevation: 1,
-              shadowColor: primaryColor.withOpacity(0.3),
-              child: Stack(
-                children: [
-                  Container(
-                    padding: EdgeInsets.all(offsetBase),
-                    child: Row(
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            AspectRatio(
+              aspectRatio: 8 / 5,
+              child: widget.model.imageUrl != null
+                  ? Container(
+                  child: Image.network(widget.model.imageUrl, fit: BoxFit.cover,)
+              )
+                  : SvgPicture.asset('assets/images/logo.svg', fit: BoxFit.contain,),
+            ),
+            ListView.builder(
+              padding: EdgeInsets.symmetric(horizontal: offsetSm, vertical: offsetSm),
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: products.length,
+              itemBuilder: (context, index) {
+                return InkWell(
+                  onTap: () {
+                    NavigatorService(context).pushToWidget(screen: ProductDetailScreen(
+                      model: products[index],
+                    ));
+                  },
+                  child: Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(offsetBase)),
+                    ),
+                    elevation: 1,
+                    shadowColor: primaryColor.withOpacity(0.3),
+                    child: Stack(
                       children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.all(Radius.circular(offsetSm)),
-                          child: getAvatarWidget(products[index]),
-                        ),
-                        SizedBox(width: offsetBase,),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                        Container(
+                          padding: EdgeInsets.all(offsetBase),
+                          child: Row(
                             children: [
-                              Text(products[index].name,
-                                maxLines: 1,
-                                style: semiBold.copyWith(fontSize: fontMd, color: primaryColor),
+                              ClipRRect(
+                                borderRadius: BorderRadius.all(Radius.circular(offsetSm)),
+                                child: getAvatarWidget(products[index]),
                               ),
-                              Text(products[index].subtitle,
-                                maxLines: 1,
-                                style: mediumText.copyWith(fontSize: fontSm, color: Colors.grey),
-                              ),
-                              Text('Price: ${products[index].defaultDisplayedPriceFormatted}',
-                                maxLines: 1,
-                                style: mediumText.copyWith(fontSize: fontSm, color: Colors.grey),
-                              ),
+                              SizedBox(width: offsetBase,),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(products[index].name,
+                                      maxLines: 1,
+                                      style: semiBold.copyWith(fontSize: fontMd, color: primaryColor),
+                                    ),
+                                    Text(products[index].subtitle,
+                                      maxLines: 1,
+                                      style: mediumText.copyWith(fontSize: fontSm, color: Colors.grey),
+                                    ),
+                                    Text('Price: ${products[index].defaultDisplayedPriceFormatted}',
+                                      maxLines: 1,
+                                      style: mediumText.copyWith(fontSize: fontSm, color: Colors.grey),
+                                    ),
+                                  ],
+                                ),
+                              )
                             ],
                           ),
-                        )
+                        ),
+                        if (products[index].productCondition == 'NEW') Align(
+                          alignment: Alignment.topRight,
+                          child: Image.asset('assets/images/badge_new.png', width: 28.0, height: 28.0,)
+                        ),
+                        Positioned.fill(
+                          child: Align(
+                            alignment: Alignment.bottomRight,
+                            child: Container(
+                              padding: EdgeInsets.only(right: offsetBase),
+                                child: getRibbonWidget(products[index]),),
+                          ),
+                        ),
                       ],
-                    ),
+                    )
                   ),
-                  if (products[index].productCondition == 'NEW') Align(
-                    alignment: Alignment.topRight,
-                    child: Image.asset('assets/images/badge_new.png', width: 28.0, height: 28.0,)
-                  ),
-                  Positioned.fill(
-                    child: Align(
-                      alignment: Alignment.bottomRight,
-                      child: Container(
-                        padding: EdgeInsets.only(right: offsetBase),
-                          child: getRibbonWidget(products[index]),),
-                    ),
-                  ),
-                ],
-              )
-            );
-          }
+                );
+              }
+            ),
+          ],
         ),
       ),
     );

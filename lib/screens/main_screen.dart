@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:urban_outlets/generated/l10n.dart';
+import 'package:urban_outlets/models/product_model.dart';
 import 'package:urban_outlets/screens/main/catergory_screen.dart';
 import 'package:urban_outlets/screens/main/favorite_screen.dart';
 import 'package:urban_outlets/screens/main/order_screen.dart';
 import 'package:urban_outlets/screens/main/profile_screen.dart';
+import 'package:urban_outlets/services/pref_service.dart';
 import 'package:urban_outlets/themes/color_theme.dart';
 import 'package:urban_outlets/themes/shadow_theme.dart';
 import 'package:urban_outlets/themes/text_theme.dart';
 import 'package:urban_outlets/utils/dimens.dart';
+
+List<ProductModel> cartModels = [];
 
 class MainScreen extends StatefulWidget {
   @override
@@ -25,6 +29,17 @@ class _MainScreenState extends State<MainScreen> {
   };
 
   var selectedIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _getData();
+  }
+
+  void _getData() async {
+    cartModels = await PreferenceService().getCartProducts();
+    setState(() {});
+  }
 
   Color getColor(int index) {
     return index == selectedIndex? primaryColor : Colors.grey.withOpacity(0.5);

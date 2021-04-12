@@ -9,13 +9,15 @@ import 'package:urban_outlets/utils/dimens.dart';
 import 'package:urban_outlets/widgets/appbar_widget.dart';
 
 class SubCategoryScreen extends StatefulWidget {
-  final String title;
   final List<CategoryModel> models;
+  final String imageUrl;
+  final String categoryName;
 
   const SubCategoryScreen({
     Key key,
-    this.title,
-    this.models
+    this.models,
+    this.imageUrl,
+    this.categoryName,
   }) : super(key: key);
 
   @override
@@ -27,46 +29,65 @@ class _SubCategoryScreenState extends State<SubCategoryScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MainBarWidget(
-        titleString: widget.title,
+        titleString: widget.categoryName,
       ),
-      body: Container(
-        padding: EdgeInsets.only(top: offsetSm),
-        child: ListView.builder(
-          itemCount: widget.models.length,
-          itemBuilder: (context, index) {
-            return Column(
-              children: [
-                InkWell(
-                  onTap: () {
-                    NavigatorService(context).pushToWidget(screen: ProductListScreen(
-                      model: widget.models[index],
-                    ));
-                  },
-                  child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: offsetBase, vertical: offsetSm),
-                    child: Row(
-                      children: [
-                        SvgPicture.asset('assets/images/logo.svg', height: 36.0,),
-                        SizedBox(width: offsetBase,),
-                        Expanded(child: Container(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(widget.models[index].name, style: semiBold.copyWith(fontSize: fontBase, color: Colors.blueGrey),),
-                              SizedBox(height: offsetXSm,),
-                              Text('Products: ${widget.models[index].productCount}', style: mediumText.copyWith(fontSize: fontSm, color: Colors.grey),),
-                            ],
-                          ),
-                        )),
-                        Icon(Icons.arrow_right, color: primaryColor,),
-                      ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            AspectRatio(
+              aspectRatio: 8 / 5,
+              child: widget.imageUrl != null
+                  ? Container(
+                  child: Image.network(widget.imageUrl, fit: BoxFit.cover,)
+              )
+                  : SvgPicture.asset('assets/images/logo.svg', fit: BoxFit.contain,),
+            ),
+            SizedBox(height: offsetBase,),
+            ListView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: widget.models.length,
+              itemBuilder: (context, index) {
+                return Column(
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        NavigatorService(context).pushToWidget(screen: ProductListScreen(
+                          model: widget.models[index],
+                        ));
+                      },
+                      child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: offsetBase, vertical: offsetSm),
+                        child: Row(
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.all(Radius.circular(offsetSm)),
+                              child: widget.models[index].thumbnailUrl != null
+                                  ? Image.network(widget.models[index].thumbnailUrl, width: 48.0, height: 48.0, fit: BoxFit.cover,)
+                                  : SvgPicture.asset('assets/images/logo.svg', height: 48.0,),
+                            ),
+                            SizedBox(width: offsetBase,),
+                            Expanded(child: Container(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(widget.models[index].name, style: semiBold.copyWith(fontSize: fontBase, color: Colors.blueGrey),),
+                                  SizedBox(height: offsetXSm,),
+                                  Text('Products: ${widget.models[index].productCount}', style: mediumText.copyWith(fontSize: fontSm, color: Colors.grey),),
+                                ],
+                              ),
+                            )),
+                            Icon(Icons.arrow_right, color: primaryColor,),
+                          ],
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-                Divider(),
-              ],
-            );
-          }
+                    Divider(),
+                  ],
+                );
+              }
+            ),
+          ],
         ),
       ),
     );

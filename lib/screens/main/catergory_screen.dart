@@ -90,14 +90,15 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 crossAxisCount: 2,
                 crossAxisSpacing: offsetXSm,
                 mainAxisSpacing: offsetXSm,
-                childAspectRatio: 4 / 3,
+                childAspectRatio: 5 / 7,
                 children:
                 List<Widget>.generate(supCategories.length, (index) {
                   return InkWell(
                     onTap: () {
                       NavigatorService(context).pushToWidget(screen: SubCategoryScreen(
-                        title: supCategories[index].name + ' (${subCategories[index].length})',
                         models: subCategories[index],
+                        imageUrl: supCategories[index].imageUrl,
+                        categoryName: supCategories[index].name,
                       ));
                     },
                     child: Card(
@@ -108,33 +109,42 @@ class _CategoryScreenState extends State<CategoryScreen> {
                       elevation: 2,
                       child: ClipRRect(
                         borderRadius: BorderRadius.all(Radius.circular(offsetBase)),
-                        child: Container(
-                          padding: EdgeInsets.all(offsetBase),
-                          decoration: BoxDecoration(
-                              gradient: getGradientColor(color: getColor(index % 10))
-                          ),
-                          child: Center(
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Text(supCategories[index].name,
-                                  style: boldText.copyWith(fontSize: fontMd,
-                                      color: Colors.white,
-                                      shadows: [containerShadow(shadowColor: Colors.black, offsetX: 1, offsetY: 1)]),
-                                  textAlign: TextAlign.center,),
-                                SizedBox(height: offsetSm,),
-                                Text('Sub Categories: ${subCategories[index].length}',
-                                  style: mediumText.copyWith(fontSize: fontSm,
-                                    color: Colors.white,
-                                  ),),
-                                Text('Products: ${supCategories[index].productCount}',
-                                  style: mediumText.copyWith(fontSize: fontSm,
-                                    color: Colors.white,
-                                  ),),
-                              ],
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            AspectRatio(
+                                aspectRatio: 5 / 4,
+                              child: Image.network(supCategories[index].thumbnailUrl, fit: BoxFit.cover,),
                             ),
-                          ),
+                            Expanded(
+                              child: Container(
+                                width: double.infinity,
+                                padding: EdgeInsets.all(offsetBase),
+                                decoration: BoxDecoration(
+                                    gradient: getGradientColor(color: getColor(index % 10))
+                                ),
+                                child: Column(
+                                  children: [
+                                    Text(supCategories[index].name,
+                                      style: boldText.copyWith(fontSize: fontMd,
+                                          color: Colors.white,
+                                          shadows: [containerShadow(shadowColor: Colors.black, offsetX: 1, offsetY: 1)]),
+                                      textAlign: TextAlign.center,),
+                                    SizedBox(height: offsetSm,),
+                                    Text('Sub Categories: ${subCategories[index].length}',
+                                      style: mediumText.copyWith(fontSize: fontSm,
+                                        color: Colors.white,
+                                      ),),
+                                    Text('Products: ${supCategories[index].productCount}',
+                                      style: mediumText.copyWith(fontSize: fontSm,
+                                        color: Colors.white,
+                                      ),),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ),

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class ProductModel {
   int id;
   String sku;
@@ -9,6 +11,7 @@ class ProductModel {
   int defaultDisplayedPrice;
   String defaultDisplayedPriceFormatted;
   String tax;
+  List<OptionModel> options;
   bool isShippingRequired;
   int weight;
   String url;
@@ -24,8 +27,8 @@ class ProductModel {
   String shipping;
   int defaultCombinationId;
   String description;
-  String galleryImages;
-  String media;
+  List<GalleryImage> galleryImages;
+  List<MediaModel> media;
   String categoryIds;
   String categories;
   int defaultCategoryId;
@@ -45,6 +48,7 @@ class ProductModel {
   Ribbon ribbon;
   bool nameYourPriceEnabled;
   String productCondition;
+  String jsonData;
 
   ProductModel(
       {this.id,
@@ -57,6 +61,7 @@ class ProductModel {
       this.defaultDisplayedPrice,
       this.defaultDisplayedPriceFormatted,
       this.tax,
+      this.options,
       this.isShippingRequired,
       this.weight,
       this.url,
@@ -92,9 +97,29 @@ class ProductModel {
       this.subtitle,
       this.ribbon,
       this.nameYourPriceEnabled,
-      this.productCondition});
+      this.productCondition,
+      this.jsonData});
 
   factory ProductModel.fromMap(Map<String, dynamic> map) {
+    List<GalleryImage> galleries = [];
+    for (var json in map['galleryImages']) {
+      GalleryImage gallery = GalleryImage.fromMap(json);
+      galleries.add(gallery);
+    }
+
+    List<MediaModel> mediaImages = [];
+    for (var json in map['media']['images']) {
+      MediaModel media = MediaModel.fromMap(json);
+      media.type = 'IMAGE';
+      mediaImages.add(media);
+    }
+
+    List<OptionModel> options = [];
+    for (var json in map['options']) {
+      OptionModel option = OptionModel.fromMap(json);
+      options.add(option);
+    }
+
     return new ProductModel(
       id: map['id'] as int,
       sku: map['sku'] as String,
@@ -107,6 +132,7 @@ class ProductModel {
       defaultDisplayedPriceFormatted:
           map['defaultDisplayedPriceFormatted'] as String,
       tax: map['tax'].toString(),
+      options: options,
       isShippingRequired: map['isShippingRequired'] as bool,
       weight: map['weight'] as int,
       url: map['url'] as String,
@@ -122,8 +148,8 @@ class ProductModel {
       shipping: map['shipping'].toString(),
       defaultCombinationId: map['defaultCombinationId'] as int,
       description: map['description'] as String,
-      galleryImages: map['galleryImages'].toString(),
-      media: map['media'].toString(),
+      galleryImages: galleries,
+      media: mediaImages,
       categoryIds: map['categoryIds'].toString(),
       categories: map['categories'].toString(),
       defaultCategoryId: map['defaultCategoryId'] as int,
@@ -143,6 +169,7 @@ class ProductModel {
       ribbon: map['ribbon'] != null? Ribbon.fromMap(map['ribbon']) : null,
       nameYourPriceEnabled: map['nameYourPriceEnabled'] as bool,
       productCondition: map['productCondition'] as String,
+      jsonData: jsonEncode(map),
     );
   }
 
@@ -215,6 +242,175 @@ class Ribbon {
     return {
       'text': this.text,
       'color': this.color,
+    };
+  }
+}
+
+class GalleryImage {
+  int id;
+  String url;
+  String thumbnailUrl;
+  String thumbnail;
+  String smallThumbnailUrl;
+  String originalImageUrl;
+  String imageUrl;
+  String hdThumbnailUrl;
+  int width;
+  int height;
+  int orderBy;
+
+  GalleryImage(
+      {this.id,
+      this.url,
+      this.thumbnailUrl,
+      this.thumbnail,
+      this.smallThumbnailUrl,
+      this.originalImageUrl,
+      this.imageUrl,
+      this.hdThumbnailUrl,
+      this.width,
+      this.height,
+      this.orderBy});
+
+  factory GalleryImage.fromMap(Map<String, dynamic> map) {
+    return new GalleryImage(
+      id: map['id'] as int,
+      url: map['url'] as String,
+      thumbnailUrl: map['thumbnailUrl'] as String,
+      thumbnail: map['thumbnail'] as String,
+      smallThumbnailUrl: map['smallThumbnailUrl'] as String,
+      originalImageUrl: map['originalImageUrl'] as String,
+      imageUrl: map['imageUrl'] as String,
+      hdThumbnailUrl: map['hdThumbnailUrl'] as String,
+      width: map['width'] as int,
+      height: map['height'] as int,
+      orderBy: map['orderBy'] as int,
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': this.id,
+      'url': this.url,
+      'thumbnailUrl': this.thumbnailUrl,
+      'thumbnail': this.thumbnail,
+      'smallThumbnailUrl': this.smallThumbnailUrl,
+      'originalImageUrl': this.originalImageUrl,
+      'imageUrl': this.imageUrl,
+      'hdThumbnailUrl': this.hdThumbnailUrl,
+      'width': this.width,
+      'height': this.height,
+      'orderBy': this.orderBy,
+    };
+  }
+}
+
+class MediaModel {
+  String id;
+  int orderBy;
+  bool isMain;
+  String imageOriginalUrl;
+  String image800pxUrl;
+  String image400pxUrl;
+  String image160pxUrl;
+  String image1500pxUrl;
+  String type;
+
+  MediaModel(
+      {this.id,
+      this.orderBy,
+      this.isMain,
+      this.imageOriginalUrl,
+      this.image800pxUrl,
+      this.image400pxUrl,
+      this.image160pxUrl,
+      this.image1500pxUrl,
+      this.type});
+
+  factory MediaModel.fromMap(Map<String, dynamic> map) {
+    return new MediaModel(
+      id: map['id'] as String,
+      orderBy: map['orderBy'] as int,
+      isMain: map['isMain'] as bool,
+      imageOriginalUrl: map['imageOriginalUrl'] as String,
+      image800pxUrl: map['image800pxUrl'] as String,
+      image400pxUrl: map['image400pxUrl'] as String,
+      image160pxUrl: map['image160pxUrl'] as String,
+      image1500pxUrl: map['image1500pxUrl'] as String,
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': this.id,
+      'orderBy': this.orderBy,
+      'isMain': this.isMain,
+      'imageOriginalUrl': this.imageOriginalUrl,
+      'image800pxUrl': this.image800pxUrl,
+      'image400pxUrl': this.image400pxUrl,
+      'image160pxUrl': this.image160pxUrl,
+      'image1500pxUrl': this.image1500pxUrl,
+    };
+  }
+}
+
+class OptionModel {
+  String type;
+  String name;
+  int defaultChoice;
+  bool required;
+  List<ChoiceModel> choices;
+
+  OptionModel(
+      {this.type, this.name, this.defaultChoice, this.required, this.choices});
+
+  factory OptionModel.fromMap(Map<String, dynamic> map) {
+    var jsonChoices = map['choices'] as List;
+    List<ChoiceModel> choices = [];
+    for (var json in jsonChoices) {
+      ChoiceModel model = ChoiceModel.fromMap(json);
+      choices.add(model);
+    }
+    return new OptionModel(
+      type: map['type'] as String,
+      name: map['name'] as String,
+      defaultChoice: map['defaultChoice'] as int,
+      required: map['required'] as bool,
+      choices: choices,
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'type': this.type,
+      'name': this.name,
+      'defaultChoice': this.defaultChoice,
+      'required': this.required,
+      'choices': this.choices,
+    };
+  }
+}
+
+class ChoiceModel {
+  String text;
+  int priceModifier;
+  String priceModifierType;
+
+  ChoiceModel({this.text, this.priceModifier, this.priceModifierType});
+
+  factory ChoiceModel.fromMap(Map<String, dynamic> map) {
+    return new ChoiceModel(
+      text: map['text'] as String,
+      priceModifier: map['priceModifier'] as int,
+      priceModifierType: map['priceModifierType'] as String,
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'text': this.text,
+      'priceModifier': this.priceModifier,
+      'priceModifierType': this.priceModifierType,
     };
   }
 }
