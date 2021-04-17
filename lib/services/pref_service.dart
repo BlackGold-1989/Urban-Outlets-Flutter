@@ -44,9 +44,12 @@ class PreferenceService {
   Future<List<ProductAmountModel>> getCardAmount() async {
     final SharedPreferences prefs = await _prefs;
     List<String> strData = prefs.getStringList(keyCartAmount) ?? [];
+    List<ProductAmountModel> models = [];
     for (var str in strData) {
-      // ProductAmountModel model = ProductAmountModel.fromJson(json)
+      ProductAmountModel model = ProductAmountModel.fromMap(jsonDecode(str));
+      models.add(model);
     }
+    return models;
   }
 
 }

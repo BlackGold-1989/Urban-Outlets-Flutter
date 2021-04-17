@@ -18,7 +18,7 @@ class SplashScreen extends StatelessWidget {
               width: 150,
               height: 150,
               child: CustomSplash(
-                imagePath: 'assets/images/logo.png',
+                imagePath: 'assets/images/asset_logo.png',
                 home: homeWidget,
                 duration: 3000,
                 type: CustomSplashType.StaticDuration,

@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.laodev.urban_outlets">
+    package="com.laodev.urbannoutlets">
    <application
         android:label="Urban Outlets"
         android:icon="@mipmap/ic_launcher"
@@ -41,4 +41,5 @@
     </application>
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 </manifest>

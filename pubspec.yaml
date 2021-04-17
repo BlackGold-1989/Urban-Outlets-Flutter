@@ -17,6 +17,11 @@ dependencies:
   shared_preferences: ^2.0.3
   mask_text_input_formatter: ^1.1.0
   otp_text_field: ^1.1.0
+  badges: ^1.2.0
+
+  firebase_auth: ^1.1.0
+
+  webview_flutter: ^2.0.4
 
   intl: ^0.17.0
   flutter_localizations:

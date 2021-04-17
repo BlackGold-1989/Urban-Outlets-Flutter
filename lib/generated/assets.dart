@@ -2,7 +2,6 @@
 class Assets {
   Assets._();
 
-  static const String assetsImagesLogo = 'assets/images/logo.svg';
   static const String fontsMontserratBlack = 'assets/fonts/montserrat_black.ttf';
   static const String fontsMontserratBold = 'assets/fonts/montserrat_bold.ttf';
   static const String fontsMontserratExtraBold = 'assets/fonts/montserrat_extraBold.ttf';
@@ -12,14 +11,16 @@ class Assets {
   static const String fontsMontserratSemiBold = 'assets/fonts/montserrat_semiBold.ttf';
   static const String fontsMontserratThin = 'assets/fonts/montserrat_thin.ttf';
   static const String iconsIcCategory = 'assets/icons/ic_category.svg';
+  static const String iconsIcEmpty = 'assets/icons/ic_empty.svg';
   static const String iconsIcFavorite = 'assets/icons/ic_favorite.svg';
   static const String iconsIcOrder = 'assets/icons/ic_order.svg';
   static const String iconsIcProfile = 'assets/icons/ic_profile.svg';
   static const String iconsIcVerify = 'assets/icons/ic_verify.svg';
+  static const String imagesAssetLogo = 'assets/images/asset_logo.png';
   static const String imagesBadgeHot = 'assets/images/badge_hot.png';
   static const String imagesBadgeNew = 'assets/images/badge_new.png';
   static const String imagesBadgeSale = 'assets/images/badge_sale.png';
-  static const String imagesLogo = 'assets/images/logo.png';
+  static const String imagesLogo = 'assets/images/logo.svg';
   static const String imagesLogoBrands = 'assets/images/logo_brands.svg';
   static const String imagesLogoFarmers = 'assets/images/logo_farmers.svg';
   static const String imagesLogoMandi = 'assets/images/logo_mandi.svg';

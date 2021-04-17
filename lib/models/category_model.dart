@@ -29,7 +29,7 @@ class CategoryModel {
       orderBy: map['orderBy'] as int,
       name: map['name'] as String,
       url: map['url'] as String,
-      thumbnailUrl: map['thumbnailUrl'] as String,
+      thumbnailUrl: (map['thumbnailUrl'] as String)??'url',
       imageUrl: map['imageUrl'] as String,
       productCount: map['productCount'] as int,
       enabled: map['enabled'] as bool,

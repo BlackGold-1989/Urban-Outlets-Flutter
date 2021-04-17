@@ -1,13 +1,15 @@
 class ProductAmountModel {
-  String productID;
+  int productID;
   int amount;
+  int selectedOption;
 
-  ProductAmountModel({this.productID, this.amount});
+  ProductAmountModel({this.productID, this.amount, this.selectedOption});
 
   factory ProductAmountModel.fromMap(Map<String, dynamic> map) {
     return new ProductAmountModel(
-      productID: map['productID'] as String,
+      productID: map['productID'] as int,
       amount: map['amount'] as int,
+      selectedOption: map['selectedOption'] as int,
     );
   }
 
@@ -15,6 +17,7 @@ class ProductAmountModel {
     return {
       'productID': this.productID,
       'amount': this.amount,
+      'selectedOption' : this.selectedOption,
     };
   }
 }

@@ -5,63 +5,63 @@ import 'color_theme.dart';
 
 const String fontFamily = 'Montserrat';
 
-TextStyle blackText = TextStyle(
+const TextStyle blackText = TextStyle(
     fontSize: fontBase,
     fontFamily: fontFamily,
     fontWeight: FontWeight.w800,
     fontStyle: FontStyle.normal,
     color: blackColor);
 
-TextStyle extraBold = TextStyle(
+const TextStyle extraBold = TextStyle(
     fontSize: fontBase,
     fontFamily: fontFamily,
     fontWeight: FontWeight.w700,
     fontStyle: FontStyle.normal,
     color: blackColor);
 
-TextStyle boldText = TextStyle(
+const TextStyle boldText = TextStyle(
     fontSize: fontBase,
     fontFamily: fontFamily,
     fontWeight: FontWeight.w600,
     fontStyle: FontStyle.normal,
     color: blackColor);
 
-TextStyle semiBold = TextStyle(
+const TextStyle semiBold = TextStyle(
     fontSize: fontBase,
     fontFamily: fontFamily,
     fontWeight: FontWeight.w500,
     fontStyle: FontStyle.normal,
     color: blackColor);
 
-TextStyle mediumText = TextStyle(
+const TextStyle mediumText = TextStyle(
     fontSize: fontBase,
     fontFamily: fontFamily,
     fontWeight: FontWeight.w400,
     fontStyle: FontStyle.normal,
     color: blackColor);
 
-TextStyle regularText = TextStyle(
+const TextStyle regularText = TextStyle(
     fontSize: fontBase,
     fontFamily: fontFamily,
     fontWeight: FontWeight.w300,
     fontStyle: FontStyle.normal,
     color: blackColor);
 
-TextStyle lightText = TextStyle(
+const TextStyle lightText = TextStyle(
     fontSize: fontBase,
     fontFamily: fontFamily,
     fontWeight: FontWeight.w200,
     fontStyle: FontStyle.normal,
     color: blackColor);
 
-TextStyle thinText = TextStyle(
+const TextStyle thinText = TextStyle(
     fontSize: fontBase,
     fontFamily: fontFamily,
     fontWeight: FontWeight.w100,
     fontStyle: FontStyle.normal,
     color: blackColor);
 
-TextStyle titleText = TextStyle(
+const TextStyle titleText = TextStyle(
     fontSize: fontBase,
     fontWeight: FontWeight.w500,
     fontStyle: FontStyle.normal,

@@ -1,8 +1,13 @@
+import 'package:badges/badges.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:urban_outlets/models/product_amount_model.dart';
 import 'package:urban_outlets/models/product_model.dart';
+import 'package:urban_outlets/screens/main_screen.dart';
+import 'package:urban_outlets/services/dialog_service.dart';
+import 'package:urban_outlets/services/pref_service.dart';
 import 'package:urban_outlets/themes/color_theme.dart';
 import 'package:urban_outlets/themes/text_theme.dart';
 import 'package:urban_outlets/utils/dimens.dart';
@@ -55,7 +60,11 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
         appBar: MainBarWidget(
           titleString: widget.model.name,
           actions: [
-            IconButton(icon: Icon(Icons.add_shopping_cart, color: primaryColor,), onPressed: () {
+            IconButton(
+                icon: Badge(
+                  badgeContent: Text('${cartModels.length}', style: TextStyle(color: Colors.white, fontSize: 10.0),),
+                    child: Icon(Icons.shopping_cart_outlined, color: primaryColor,)),
+                onPressed: () {
 
             }),
           ],
@@ -159,7 +168,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                       ],
                     ),
                     SizedBox(height: offsetSm,),
-                    Row(
+                    if (widget.model.ribbon != null) Row(
                       children: [
                         Text('Tags : ', style: lightText.copyWith(fontSize: fontBase),),
                         Text(widget.model.ribbon.text,
@@ -264,7 +273,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                     FullWidthButton(
                       title: 'Add to Bag',
                       action: () {
-
+                        addCart();
                       },
                     ),
                     SizedBox(height: offsetBase,),
@@ -291,6 +300,27 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
     setState(() {
       amountController.text = '$amount';
     });
+  }
+
+  addCart() async {
+    ProductAmountModel amountModel = ProductAmountModel(
+      productID: widget.model.id,
+      amount: int.parse(amountController.text),
+      selectedOption: selectedIndex ?? 0
+    );
+    if (cartModels.contains(widget.model) && cartAmountModels.contains(amountModel)) {
+      DialogService(context).showSnackbar('This product already saved on your bag.',
+          _scaffoldKey,
+          type: SnackBarType.WARING);
+      return;
+    }
+    cartModels.add(widget.model);
+    cartAmountModels.add(amountModel);
+    await PreferenceService().saveCartProducts(cartModels);
+    await PreferenceService().saveCartAmount(cartAmountModels);
+    DialogService(context).showSnackbar('This product saved on your bag.', _scaffoldKey);
+
+    setState(() {});
   }
 
 }

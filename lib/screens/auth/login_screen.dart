@@ -1,7 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:urban_outlets/generated/l10n.dart';
 import 'package:urban_outlets/screens/auth/phone_auth_screen.dart';
+import 'package:urban_outlets/screens/main_screen.dart';
 import 'package:urban_outlets/services/navigator_service.dart';
 import 'package:urban_outlets/utils/consts.dart';
 import 'package:urban_outlets/utils/dimens.dart';
@@ -19,11 +21,17 @@ class _LoginScreenState extends State<LoginScreen> {
   final phoneController = TextEditingController();
   var isEnable = false;
 
+  FirebaseAuth auth = FirebaseAuth.instance;
+
   @override
   void initState() {
     super.initState();
 
     phoneController.addListener(() {_verifyPhoneNumber();});
+
+    if (auth.currentUser != null) {
+      onMoveNextScene();
+    }
   }
 
   _verifyPhoneNumber() {
@@ -87,12 +95,27 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  _login() async {
+  _login() {
     FocusScope.of(context).unfocus();
+    String phone = phoneMask.unmaskText(phoneController.text);
+
+    if (phone == "2096227257" || phone == "2093601301") {
+      phone = "+856" + phone;
+    } else {
+      phone = "+91" + phone;
+    }
+
     NavigatorService(context).pushToWidget(
         screen: PhoneAuthScreen(
           phoneNumber: phoneController.text,
+          phone: phone,
         )
+    );
+  }
+
+  void onMoveNextScene() {
+    NavigatorService(context).pushToWidget(
+        screen: MainScreen()
     );
   }
 

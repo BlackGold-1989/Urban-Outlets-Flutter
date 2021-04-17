@@ -15,6 +15,10 @@ import 'package:urban_outlets/utils/dimens.dart';
 import 'package:urban_outlets/widgets/appbar_widget.dart';
 
 class CategoryScreen extends StatefulWidget {
+  final Function() reload;
+
+  const CategoryScreen({Key key, this.reload}) : super(key: key);
+
   @override
   _CategoryScreenState createState() => _CategoryScreenState();
 }
@@ -99,7 +103,9 @@ class _CategoryScreenState extends State<CategoryScreen> {
                         models: subCategories[index],
                         imageUrl: supCategories[index].imageUrl,
                         categoryName: supCategories[index].name,
-                      ));
+                      ), pop: (value) {
+                        widget.reload();
+                      });
                     },
                     child: Card(
                       shadowColor: getColor(index % 10).withOpacity(0.2),
